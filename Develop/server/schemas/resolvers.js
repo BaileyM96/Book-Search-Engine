@@ -1,8 +1,8 @@
-const { User } = require('../models');
-const { signToken } = require('../utils');
+// const { User } = require('../models');
+// const { signToken } = require('../utils');
 
-const resolvers = {
-    Query: {
+// const resolvers = {
+//     Query: {
         
-    }
-}
+//     }
+// }
