@@ -19,6 +19,10 @@ type User {
     savedBooks: [Book]
 }
 
+type Query {
+    me: User
+}
+
 type Auth {
     token: ID!
     user: User
