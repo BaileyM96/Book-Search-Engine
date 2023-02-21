@@ -2,7 +2,8 @@ const { AuthenticationError } = require('apollo-server-express');
 const { login, saveBook } = require('../controllers/user-controller');
 const { User } = require('../models');
 const { signToken } = require('../utils');
-// resolvers find the data
+// resolvers finds the data
+// Uses mongo methoods 
 
 const resolvers = {
     Query: {
