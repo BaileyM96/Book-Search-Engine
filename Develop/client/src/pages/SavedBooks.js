@@ -7,13 +7,15 @@ import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 import { REMOVE_BOOK } from '../utils/mutations';
 
+// Handle savedBooks in your account
 const SavedBooks = () => {
   // Check to see if the data is there locally so it doesnt query the graphql server
-  const { loading, data } = useQuery(GET_ME);
+  const { loading, data } = useQuery(getMe);
   const [removeBook, { error }] = useMutation(REMOVE_BOOK)
 
   const userData = data?.me || [];
 
+  // Delete book by bookId
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -23,15 +25,10 @@ const SavedBooks = () => {
     }
 
     try {
-      const {data} = await deleteBook(bookId, token);
+      const { data } = await removeBook({
+        variables: { bookId },
+      });
 
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
-
-      const updatedUser = await response.json();
-      setUserData(updatedUser);
-      // upon success, remove book's id from localStorage
       removeBookId(bookId);
     } catch (err) {
       console.error(err);
@@ -39,7 +36,8 @@ const SavedBooks = () => {
   };
 
   // if data isn't here yet, say so
-  if (!userDataLength) {
+  // Use loading instead
+  if (loading) {
     return <h2>LOADING...</h2>;
   }
 
