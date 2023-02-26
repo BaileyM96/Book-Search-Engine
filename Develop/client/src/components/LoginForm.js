@@ -1,5 +1,5 @@
 // see SignupForm.js for comments
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 // import { loginUser } from '../utils/API';
 import Auth from '../utils/auth';
@@ -21,6 +21,14 @@ const LoginForm = () => {
     setUserFormData({ ...userFormData, [name]: value });
   };
 
+    useEffect(() => {
+    if (error) {
+      setShowAlert(true);
+    } else {
+      setShowAlert(false);
+    }
+  }, [error]);
+
   // Form submit 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -33,7 +41,6 @@ const LoginForm = () => {
     }
 
     try {
-      // Why is login not defined?
       const { data } = await login({
         variables: { ...userFormData },
       });

@@ -7,19 +7,12 @@ import Navbar from './components/Navbar';
 import {
   ApolloProvider,
   ApolloClient,
+  InMemoryCache,
 } from '@apollo/client';
 
 const client = new ApolloClient({
-  request: operation => {
-    const token = localStorage.getItem('id_token');
-
-    operation.setContext({
-      headers: {
-        authorization: token ? `Bearer ${token}` : '',
-      }
-    })
-  },
-  //end point for apollo client to comm with
+  cache: new InMemoryCache(),
+  //end point for apollo client to communicate with
   uri: '/graphql'
 });
 

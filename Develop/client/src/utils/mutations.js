@@ -6,6 +6,7 @@ mutation login($email: String!, $password: String!) {
         token
         user {
             _id
+            username
         }
     }
 }
@@ -19,15 +20,6 @@ mutation addUser($username: String!, $email: String!, $password: String!) {
             _id
             username 
             email
-            bookCount
-            savedBooks {
-               authors
-               bookId
-               description
-               title
-               image
-               link 
-            }
         }
     }
 }
